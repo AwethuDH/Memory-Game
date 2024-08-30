@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Memory Game</title>
+<script src="https://kit.fontawesome.com/d77ac583c4.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+<h1 class="heading">How good is your Memory?</h1>
+</header>
+<div class="count-container">
+    <p class="attempts">Attempts: <span class="count"></span></p>
+    <span class="reset">Reset <i class="fas fa-sync"></i></span>
+    <p class="time">Time: <span class="min-count">00</span>: <span class="sec-count">00</span></p>
+</div>
+<div class="input-container">
+    <input type="text" id="player1Name" placeholder="Player 1 Name">
+    <input type="text" id="player2Name" placeholder="Player 2 Name">
+    <button id="startBtn">Start</button>
+</div>
+<div class="scoreboard-container">
+    <table class="scoreboard">
+        <tr>
+            <th>Player</th>
+            <th>Score</th>
+            <th>Turns</th>
+        </tr>
+        <tr>
+            <td class="player1"></td>
+            <td id="player1Score">0</td>
+            <td id="player1Turns">0</td>
+        </tr>
+        <tr>
+            <td class="player2"></td>
+            <td id="player2Score">0</td>
+            <td id="player2Turns">0</td>
+        </tr>
+    </table>
+    <!---<table class="winners-board">
+        <tr>
+            <th>Winners Board</th>
+        </tr>
+    </table>-->
+</div>
+<div id="game"></div>
+<script src="script.js"></script>
+</body>
+</html>
