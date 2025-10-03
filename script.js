@@ -1,4 +1,3 @@
-// Card data
 const cardsArray = [
     { name: "pokemon1", img: "./media/pokemon1.png" },
     { name: "pokemon2", img: "./media/pokemon2.png" },
@@ -14,14 +13,14 @@ const cardsArray = [
     { name: "pokemon12", img: "./media/pokemon12.png" },
 ];
 
-// Game variables
+
 let gameStarted = false;
 let firstGuess = "";
 let secondGuess = "";
 let previousTarget = null;
 let count = 0;
 let delay = 1200;
-let currentPlayer = 1; // 1 for player1, 2 for player2
+let currentPlayer = 1; 
 let player1Score = 0;
 let player2Score = 0;
 let player1Turns = 0;
@@ -32,18 +31,17 @@ let player1Name = "";
 let player2Name = "";
 let winner = "";
 
-// Create game grid
+
 const createGameGrid = () => {
     const game = document.getElementById("game");
     const grid = document.createElement("section");
     grid.classList.add("grid");
     game.appendChild(grid);
 
-    // Double array
     let gameGrid = cardsArray.concat(cardsArray);
     gameGrid.sort(() => 0.5 - Math.random());
 
-    // Create cards
+  
     gameGrid.forEach((item) => {
         const card = document.createElement("div");
         card.classList.add("card", `${item.name}`);
@@ -58,14 +56,12 @@ const createGameGrid = () => {
         card.appendChild(back);
     });
 
-    // Add event listener to each card
     const cards = document.querySelectorAll(".card");
     cards.forEach((card) => {
         card.addEventListener("click", handleClick);
     });
 };
 
-// Timer functions
 let sec = 0;
 let timeInSec;
 let min = 0;
@@ -78,7 +74,6 @@ function secCount() {
 }
 let timeStarted = false;
 
-// Update scoreboard
 const updateScoreboard = () => {
     document.getElementById("player1Score").innerText = player1Score;
     document.getElementById("player2Score").innerText = player2Score;
@@ -88,7 +83,6 @@ const updateScoreboard = () => {
     document.getElementById("player2Timer").innerText = player2Timer;
 };
 
-// Update timer
 const updateTimer = () => {
     if (currentPlayer === 1) {
         player1Timer--;
@@ -104,7 +98,6 @@ const updateTimer = () => {
 
 let timerInterval;
 
-// Switch player
 const switchPlayer = () => {
     clearInterval(timerInterval);
     currentPlayer = currentPlayer === 1 ? 2 : 1;
@@ -122,7 +115,6 @@ const switchPlayer = () => {
     updateScoreboard();
 };
 
-// Handle click event on grid items
 const handleClick = (event) => {
     if (!gameStarted) return;
 
@@ -141,17 +133,13 @@ const handleClick = (event) => {
     if (count < 2) {
         count++;
         if (count === 1) {
-            // Assign first guess
             firstGuess = clicked.parentNode.dataset.name;
             clicked.parentNode.classList.add("selected");
         } else {
-            // Assign second guess
             secondGuess = clicked.parentNode.dataset.name;
             clicked.parentNode.classList.add("selected");
         }
-        // If both guesses are not empty...
         if (firstGuess !== "" && secondGuess !== "") {
-            // and the first guess matches the second match...
             if (firstGuess === secondGuess) {
                 setTimeout(match, delay);
                 setTimeout(resetGuesses, delay);
@@ -170,7 +158,6 @@ const handleClick = (event) => {
     previousTarget = clicked;
 };
 
-// Match function
 const match = () => {
     const selected = document.querySelectorAll(".selected");
     selected.forEach((card) => {
@@ -180,7 +167,6 @@ const match = () => {
     checkEndGame();
 };
 
-// Reset guesses
 const resetGuesses = () => {
     firstGuess = "";
     secondGuess = "";
@@ -191,7 +177,6 @@ const resetGuesses = () => {
     });
 };
 
-// Check if the game has ended
 const checkEndGame = () => {
     const matchedCards = document.querySelectorAll('.match');
     if (matchedCards.length === cardsArray.length * 2) {
@@ -199,11 +184,9 @@ const checkEndGame = () => {
     }
 };
 
-// End game function
 const endGame = () => {
     clearInterval(timerInterval);
     timeStarted = false;
-    // Determine winner
     if (player1Score > player2Score) {
         winner = player1Name;
     } else if (player2Score > player1Score) {
@@ -211,8 +194,6 @@ const endGame = () => {
     } else {
         winner = "Tie";
     }
-
-    // Show winner in a pop-up
     Swal.fire({
         title: "Game Over!",
         text: `${winner} wins!`,
@@ -224,7 +205,6 @@ const endGame = () => {
         }
     });
 
-    // Display winner on winners board immediately
     const winnersBoard = document.querySelector(".winners-board");
     const newRow = document.createElement("tr");
     const newData = document.createElement("td");
@@ -233,14 +213,12 @@ const endGame = () => {
     winnersBoard.appendChild(newRow);
 };
 
-// Reset all
 const reset = document.querySelector(".reset");
 reset.addEventListener("click", () => {
     clearTimeout(timeInSec);
     window.location.reload();
 });
 
-// Start button
 document.getElementById("startBtn").addEventListener("click", () => {
     player1Name = document.getElementById("player1Name").value;
     player2Name = document.getElementById("player2Name").value;
