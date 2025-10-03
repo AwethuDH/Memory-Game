@@ -109,8 +109,7 @@ body {
     backface-visibility: hidden;
 }
 .front {
-    background: #7daffa /*url("../media/LOG.png") no-repeat center center /
-        contain;*/
+    background: #7daffa;
 }
 .back {
     transform: rotateY(180deg);
